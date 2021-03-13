@@ -1,0 +1,19 @@
+name: KikakuUtils
+version: ${project.version}
+main: net.kunmc.lab.kikakuutils.KikakuUtils
+api-version: 1.15
+authors: [ Nagatuki ]
+description: 単発企画、攻城戦企画のための管理ツール
+website: None
+
+commands:
+  kikaku:
+    usage: Unknown command. Type "/kikaku help" for help.
+    description: 50 ninn kikaku utilities
+    permission: kikakuutils
+    aliases:
+      - ku
+
+permissions:
+  kikakuutils:
+    default: op
