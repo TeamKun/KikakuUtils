@@ -1,47 +1,82 @@
 package net.kunmc.lab.kikakuutils.command.ku;
 
+import net.kunmc.lab.kikakuutils.KikakuUtils;
 import net.kunmc.lab.kikakuutils.command.AbstractArgument;
-import net.kunmc.lab.kikakuutils.command.AbstractCommand;
-import org.bukkit.command.Command;
+import net.kunmc.lab.kikakuutils.rules.RuleGameMode;
+import net.kunmc.lab.kikakuutils.utils.GameModeUtils;
 import org.bukkit.command.CommandSender;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Gamemode extends AbstractArgument {
-    // /ku gamemode <adventure|creative|survival|spectator>
-    // /ku gamemode <adventure|creative|survival|spectator> TARGET_SELECTOR
+    /**
+     * ゲームモードの設定を全プレイヤー（含オフライン）に適用する
+     * - コマンド内容
+     * /ku gamemode <adventure|creative|survival|spectator>
+     * /ku gamemode <adventure|creative|survival|spectator> TARGET_SELECTOR
+     */
 
-    private final String ADVENTURE = "adventure";
-    private final String CREATIVE = "creative";
-    private final String SURVIVAL = "survival";
-    private final String SPECTATOR = "spectator";
+    public boolean executeCommand(CommandSender sender, String[] args) {
+        if (args.length < 2) return false;
+        if (args.length > 3) return false;
+        if (!args[0].equals("gamemode")) return false;
 
-    public boolean executeCommand(CommandSender sender, String[] args){
-        if(args.length < 2) return false;
-        if(args.length > 3) return false;
-        if(!args[0].equals("gamemode")) return false;
+        String gameMode = args[1];
+        String target = (args.length == 3) ? args[2] : sender.getName();
 
-        // ターゲットセレクタの処理？
+        RuleGameMode ruleGamemode = KikakuUtils.plugin.ruleManager.gameMode;
+        boolean isSucceeded = ruleGamemode.setRule(sender, gameMode, target);
 
-        // ゲームモードの処理？
+        ruleGamemode.applyToAllTargetedPlayers();
 
-        return false;
+        return isSucceeded;
     }
 
-    public List<String> tabComplete(CommandSender sender, String[] args){
-        if(args.length == 0) return null;
-        if(args.length > 3) return null;
+    public List<String> tabComplete(CommandSender sender, String[] args) {
+        if (args.length == 0) return null;
 
-        if(args.length == 1 && "gamemode".startsWith(args[0])){
-            return Collections.singletonList("gamemode");
+        if (args.length == 1) {
+            if ("gamemode".startsWith(args[0])) {
+                return Collections.singletonList("gamemode");
+            }
+
+            return null;
         }
 
-        if(args.length == 2 && args[0].equals("gamemode")){
+        // args[0] が "gamemode" でないものをのぞく
+        if (!args[0].equals("gamemode")) return null;
 
+        String gameMode = args[1];
+        if (args.length == 2) {
+            List<String> suggestion = GameModeUtils.stringValues()
+                    .stream()
+                    .filter(v -> v.startsWith(gameMode))
+                    .collect(Collectors.toList());
+
+            return suggestion;
         }
 
+        // gamemode = args[1] がゲームモードでないものを除く
+        if (!GameModeUtils.isGameMode(gameMode)) return null;
+
+        String target = args[2];
+        if (args.length == 3) {
+            List<String> suggestion = Arrays.asList("@a", "@p", "@r")
+                    .stream()
+                    .filter(v -> v.startsWith(target))
+                    .collect(Collectors.toList());
+
+            KikakuUtils.plugin.getServer().getOnlinePlayers()
+                    .stream()
+                    .map(v -> v.getName())
+                    .filter(v -> v.startsWith(target))
+                    .forEach(v -> suggestion.add(v));
+
+            return suggestion;
+        }
 
         return null;
     }
