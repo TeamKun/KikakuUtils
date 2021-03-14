@@ -12,20 +12,37 @@ public class GameModeUtils {
     public static final String S_SURVIVAL = "survival";
     public static final String S_SPECTATOR = "spectator";
 
+    public static final String SL_ADVENTURE = "ADVENTURE";
+    public static final String SL_CREATIVE = "CREATIVE";
+    public static final String SL_SURVIVAL = "SURVIVAL";
+    public static final String SL_SPECTATOR = "SPECTATOR";
+
     public static boolean isGameMode(String text) {
-        if (text.equals(S_ADVENTURE)) return true;
-        if (text.equals(S_CREATIVE)) return true;
-        if (text.equals(S_SURVIVAL)) return true;
-        if (text.equals(S_SPECTATOR)) return true;
+        return isGameModeStrict(text.toUpperCase());
+    }
+
+    public static boolean isGameModeStrict(String text) {
+        if (text.equals(SL_ADVENTURE)) return true;
+        if (text.equals(SL_CREATIVE)) return true;
+        if (text.equals(SL_SURVIVAL)) return true;
+        if (text.equals(SL_SPECTATOR)) return true;
         return false;
     }
 
-    public static List<String> stringValues() {
+    public static List<String> stringLowerCaseValues() {
         return Arrays.asList(S_ADVENTURE, S_CREATIVE, S_SURVIVAL, S_SPECTATOR);
     }
 
+    public static List<String> stringUpperCaseValues() {
+        return Arrays.asList(SL_ADVENTURE, SL_CREATIVE, SL_SURVIVAL, SL_SPECTATOR);
+    }
+
     public static Optional<GameMode> toGameMode(String text) {
-        if (isGameMode(text)) return Optional.of(GameMode.valueOf(text));
+        if (isGameMode(text)) {
+            text = text.toUpperCase();
+            return Optional.of(GameMode.valueOf(text));
+        }
+
         return Optional.empty();
     }
 }
