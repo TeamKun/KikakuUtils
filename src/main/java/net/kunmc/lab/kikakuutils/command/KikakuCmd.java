@@ -2,8 +2,8 @@ package net.kunmc.lab.kikakuutils.command;
 
 import net.kunmc.lab.kikakuutils.command.ku.Gamemode;
 
-public class Ku extends AbstractCommand {
-    public Ku() {
+public class KikakuCmd extends AbstractCommand {
+    public KikakuCmd() {
         // 必要？
         super();
 

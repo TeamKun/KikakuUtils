@@ -19,6 +19,7 @@ public class Gamemode extends AbstractArgument {
      * /ku gamemode <adventure|creative|survival|spectator> TARGET_SELECTOR
      */
 
+    @Override
     public boolean executeCommand(CommandSender sender, String[] args) {
         if (args.length < 2) return false;
         if (args.length > 3) return false;
@@ -30,11 +31,25 @@ public class Gamemode extends AbstractArgument {
         RuleGameMode ruleGamemode = KikakuUtils.plugin.ruleManager.gameMode;
         boolean isSucceeded = ruleGamemode.setRule(sender, gameMode, target);
 
+        // "/ku gamemode" まで入力されていて、かつコマンドが不適だったらエラーメッセージを送る
+        if (!isSucceeded) {
+            String message = String.format("%s 引数が不適当です。", PREFIX_REJECT);
+            sender.sendMessage(message);
+
+            message = "/ku gamemode <adventure | creative | survival | spectator> [player]";
+            sender.sendMessage(message);
+            return false;
+        }
+
         ruleGamemode.applyToAllTargetedPlayers();
 
-        return isSucceeded;
+        String message = String.format("%s ゲームモードが %s に設定されました。", PREFIX_ACCEPT, gameMode);
+        sender.sendMessage(message);
+
+        return true;
     }
 
+    @Override
     public List<String> tabComplete(CommandSender sender, String[] args) {
         if (args.length == 0) return null;
 
@@ -51,7 +66,7 @@ public class Gamemode extends AbstractArgument {
 
         String gameMode = args[1];
         if (args.length == 2) {
-            List<String> suggestion = GameModeUtils.stringValues()
+            List<String> suggestion = GameModeUtils.stringLowerCaseValues()
                     .stream()
                     .filter(v -> v.startsWith(gameMode))
                     .collect(Collectors.toList());
