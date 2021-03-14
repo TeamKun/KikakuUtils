@@ -4,13 +4,14 @@ import org.bukkit.persistence.PersistentDataAdapterContext;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-public class LocalDateTimeType implements PersistentDataType<LocalDateTime, LocalDateTime> {
+public class LocalDateTimeType implements PersistentDataType<String, LocalDateTime> {
     public static final LocalDateTimeType type = new LocalDateTimeType();
 
     @Override
-    public Class<LocalDateTime> getPrimitiveType() {
-        return LocalDateTime.class;
+    public Class<String> getPrimitiveType() {
+        return String.class;
     }
 
     @Override
@@ -19,12 +20,12 @@ public class LocalDateTimeType implements PersistentDataType<LocalDateTime, Loca
     }
 
     @Override
-    public LocalDateTime toPrimitive(LocalDateTime complex, PersistentDataAdapterContext context) {
-        return complex;
+    public String toPrimitive(LocalDateTime complex, PersistentDataAdapterContext context) {
+        return complex.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
     }
 
     @Override
-    public LocalDateTime fromPrimitive(LocalDateTime primitive, PersistentDataAdapterContext context) {
-        return primitive;
+    public LocalDateTime fromPrimitive(String primitive, PersistentDataAdapterContext context) {
+        return LocalDateTime.parse(primitive, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
     }
 }
