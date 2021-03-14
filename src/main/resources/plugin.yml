@@ -8,7 +8,7 @@ website: None
 
 commands:
   kikaku:
-    usage: Unknown command. Type "/kikaku help" for help.
+    usage: Unknown command. Type "/kikaku help" for help. <- まだ実装してない
     description: 50 ninn kikaku utilities
     permission: kikakuutils
     aliases:
