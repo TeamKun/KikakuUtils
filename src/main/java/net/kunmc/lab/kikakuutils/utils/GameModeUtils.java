@@ -45,4 +45,20 @@ public class GameModeUtils {
 
         return Optional.empty();
     }
+
+    public static String toJapanese(GameMode gameMode) {
+        if (gameMode == GameMode.ADVENTURE) {
+            return "アドベンチャー";
+        }
+
+        if (gameMode == GameMode.CREATIVE) {
+            return "クリエイティブ";
+        }
+
+        if (gameMode == GameMode.SURVIVAL) {
+            return "サバイバル";
+        }
+
+        return "スペクテイター";
+    }
 }
