@@ -7,11 +7,11 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.Arrays;
 
-public class KikakuRuleManager implements Listener {
+public class RuleManager implements Listener {
     private AbstractRule[] rules;
     public RuleGameMode gameMode;
 
-    public KikakuRuleManager() {
+    public RuleManager() {
         gameMode = new RuleGameMode();
 
         rules = new AbstractRule[]{
