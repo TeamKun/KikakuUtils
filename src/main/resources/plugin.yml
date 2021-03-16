@@ -13,7 +13,21 @@ commands:
     permission: kikakuutils
     aliases:
       - ku
+  please:
+    usage: Unknown command. Type "/please help" for help. <- まだ実装してない
+    description: 50 ninn kikaku utilities. please command.
+    permission: kikakuutils.please
+  kikaku-internal-please:
+    usage: Kikaku Utilsプラグインの内部コマンドです。使わないでね。
+    description: This is an internal command of Kikaku Util plugin.
+    permission: kikakuutils.internal.please
 
 permissions:
   kikakuutils:
     default: op
+  kikakuutils.please:
+    description: KikakuUtilsのpleaseコマンド用権限
+    default: op
+  kikakuutils.internal.please:
+    description: KikakuUtils内部コマンド用権限
+    default: true
