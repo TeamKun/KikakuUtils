@@ -1,6 +1,10 @@
 package net.kunmc.lab.kikakuutils.rules;
 
+import net.kunmc.lab.kikakuutils.KikakuUtils;
 import net.kunmc.lab.kikakuutils.utils.GameModeUtils;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.CommandSender;
@@ -49,11 +53,24 @@ public class RuleGameMode extends AbstractRule {
         if (!player.isOnline()) return;
         if (isAppliedToPlayer(player)) return;
 
-        // TODO: 権限確認
-        // TODO: 権限を持っていたら適用の確認をする
-        // TODO: 拒否られたらreturn
+        GameMode gameMode = getGameMode();
 
-        player.setGameMode(getGameMode());
+        // 権限を持っている場合には強制変更ではなく問い合わせ
+        if (player.hasPermission("kikakuutils.rule.reject")) {
+            CommandSender sender = getCommandSender();
+            KikakuUtils.plugin.pleaseManager.gameMode.exec(sender, player, gameMode);
+        } else {
+            player.setGameMode(gameMode);
+
+            BaseComponent[] message = new ComponentBuilder()
+                    .append("[Kikaku Utils] ").color(ChatColor.LIGHT_PURPLE)
+                    .append("ゲームモードが").color(ChatColor.WHITE)
+                    .append(GameModeUtils.toJapanese(gameMode)).color(ChatColor.GREEN)
+                    .append("に変更されました。").color(ChatColor.WHITE)
+                    .create();
+            player.sendMessage(message);
+        }
+
         setExecTimeToPlayer(player);
     }
 

@@ -41,10 +41,10 @@ public class Gamemode extends AbstractArgument {
             return false;
         }
 
-        ruleGamemode.applyToAllTargetedPlayers();
-
         String message = String.format("%s ゲームモードが %s に設定されました。", PREFIX_ACCEPT, gameMode);
         sender.sendMessage(message);
+
+        ruleGamemode.applyToAllTargetedPlayers();
 
         return true;
     }

@@ -25,6 +25,9 @@ commands:
 permissions:
   kikakuutils:
     default: op
+  kikakuutils.rule.reject:
+    description: KikakuUtilsのkuコマンドによる設定変更を拒否することができる権限
+    default: op
   kikakuutils.please:
     description: KikakuUtilsのpleaseコマンド用権限
     default: op
