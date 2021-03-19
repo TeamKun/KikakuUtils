@@ -1,4 +1,4 @@
-package net.kunmc.lab.kikakuutils.please;
+package net.kunmc.lab.kikakuutils.ask;
 
 import net.kunmc.lab.kikakuutils.KikakuUtils;
 import net.kunmc.lab.kikakuutils.utils.GameModeUtils;
@@ -8,11 +8,8 @@ import org.bukkit.GameMode;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class PleaseGameMode extends AbstractPlease {
-    public PleaseGameMode() {
+public class AskGameMode extends AbstractAsk {
+    public AskGameMode() {
         super("gamemode");
     }
 
@@ -57,7 +54,7 @@ public class PleaseGameMode extends AbstractPlease {
         tickets.put(token, task);
     }
 
-    public static class Task extends AbstractPleaseTask {
+    public static class Task extends AbstractAskTask {
         private Player target;
         private GameMode gameMode;
 

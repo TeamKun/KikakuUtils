@@ -58,7 +58,7 @@ public class RuleGameMode extends AbstractRule {
         // 権限を持っている場合には強制変更ではなく問い合わせ
         if (player.hasPermission("kikakuutils.rule.reject")) {
             CommandSender sender = getCommandSender();
-            KikakuUtils.plugin.pleaseManager.gameMode.exec(sender, player, gameMode);
+            KikakuUtils.plugin.askManager.gameMode.exec(sender, player, gameMode);
         } else {
             player.setGameMode(gameMode);
 

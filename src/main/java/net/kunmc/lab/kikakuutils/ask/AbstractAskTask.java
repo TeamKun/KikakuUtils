@@ -1,11 +1,11 @@
-package net.kunmc.lab.kikakuutils.please;
+package net.kunmc.lab.kikakuutils.ask;
 
 import org.bukkit.scheduler.BukkitRunnable;
 
-abstract public class AbstractPleaseTask extends BukkitRunnable {
+abstract public class AbstractAskTask extends BukkitRunnable {
     private boolean isAliveTask;
 
-    public AbstractPleaseTask() {
+    public AbstractAskTask() {
         isAliveTask = true;
     }
 

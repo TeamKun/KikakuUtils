@@ -1,4 +1,4 @@
-package net.kunmc.lab.kikakuutils.please;
+package net.kunmc.lab.kikakuutils.ask;
 
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -7,13 +7,13 @@ import org.apache.commons.lang.RandomStringUtils;
 import java.util.HashMap;
 import java.util.Map;
 
-abstract public class AbstractPlease {
+abstract public class AbstractAsk {
     private int waitTimeSec = 10;
     private String argument;
 
-    protected Map<String, AbstractPleaseTask> tickets = new HashMap<>();
+    protected Map<String, AbstractAskTask> tickets = new HashMap<>();
 
-    public AbstractPlease(String argument) {
+    public AbstractAsk(String argument) {
         this.argument = argument;
     }
 
@@ -32,7 +32,7 @@ abstract public class AbstractPlease {
 
     protected String createRejectCommand(String token) {
         String[] commandParticles = new String[]{
-                PleaseInternalCommand.command,
+                AskInternalCommand.command,
                 getArgument(),
                 token
         };
@@ -52,7 +52,7 @@ abstract public class AbstractPlease {
         if (!tickets.containsKey(token)) return false;
 
         // NOTE: Taskの生成が重い場合にはここも変更！
-        AbstractPleaseTask task = tickets.get(token);
+        AbstractAskTask task = tickets.get(token);
         tickets.remove(token);
 
         if (task.isCancelled()) return false;

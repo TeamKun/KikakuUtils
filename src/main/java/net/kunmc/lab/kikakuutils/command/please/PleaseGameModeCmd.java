@@ -2,7 +2,7 @@ package net.kunmc.lab.kikakuutils.command.please;
 
 import net.kunmc.lab.kikakuutils.KikakuUtils;
 import net.kunmc.lab.kikakuutils.command.AbstractArgument;
-import net.kunmc.lab.kikakuutils.please.PleaseGameMode;
+import net.kunmc.lab.kikakuutils.ask.AskGameMode;
 import net.kunmc.lab.kikakuutils.utils.GameModeUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -47,7 +47,7 @@ public class PleaseGameModeCmd extends AbstractArgument {
             return true;
         }
 
-        PleaseGameMode pleaseGameMode = KikakuUtils.plugin.pleaseManager.gameMode;
+        AskGameMode pleaseGameMode = KikakuUtils.plugin.askManager.gameMode;
         players.forEach(v -> pleaseGameMode.exec(sender, v, gameMode));
         return true;
     }

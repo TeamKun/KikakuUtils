@@ -1,4 +1,4 @@
-package net.kunmc.lab.kikakuutils.please;
+package net.kunmc.lab.kikakuutils.ask;
 
 import net.kunmc.lab.kikakuutils.KikakuUtils;
 import net.md_5.bungee.api.ChatColor;
@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 import java.util.Arrays;
 import java.util.Optional;
 
-public class PleaseInternalCommand implements CommandExecutor {
+public class AskInternalCommand implements CommandExecutor {
     // /kikaku-internal-please <name> <token>"
 
     public static final String command = "/kikaku-internal-please";
@@ -50,13 +50,13 @@ public class PleaseInternalCommand implements CommandExecutor {
         String name = args[0];
         String token = args[1];
 
-        PleaseManager pleaseManager = KikakuUtils.plugin.pleaseManager;
-        Optional<AbstractPlease> pleaseOptional = Arrays.stream(pleaseManager.please)
+        AskManager askManager = KikakuUtils.plugin.askManager;
+        Optional<AbstractAsk> pleaseOptional = Arrays.stream(askManager.please)
                 .filter(v -> v.getArgument().equals(name))
                 .findAny();
 
         if (pleaseOptional.isPresent()) {
-            AbstractPlease please = pleaseOptional.get();
+            AbstractAsk please = pleaseOptional.get();
             boolean rejectComplete = please.reject(token);
             if (rejectComplete) sender.sendMessage(createRejectCompleteMessage());
             return true;
