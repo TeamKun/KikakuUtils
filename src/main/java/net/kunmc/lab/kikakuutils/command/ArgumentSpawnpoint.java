@@ -1,12 +1,12 @@
-package net.kunmc.lab.kikakuutils.command.ku;
+package net.kunmc.lab.kikakuutils.command;
 
 import net.kunmc.lab.kikakuutils.command.AbstractArgument;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;
 
-public class Spawnpoint extends AbstractArgument {
-    public boolean executeCommand(CommandSender sender, String[] args){
+public class ArgumentSpawnpoint extends AbstractArgument {
+    public boolean onCommand(CommandSender sender, String[] args){
         return false;
     }
 

@@ -8,9 +8,13 @@ import org.bukkit.command.TabCompleter;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class AbstractCommand implements CommandExecutor, TabCompleter {
+public class KikakuCommand implements CommandExecutor, TabCompleter {
     private List<AbstractArgument> arguments = new ArrayList<>();
+
+    public KikakuCommand() {
+        // コマンド引数の追加
+        registerArgument(new ArgumentGameMode());
+    }
 
     protected void registerArgument(AbstractArgument argument) {
         arguments.add(argument);
@@ -21,7 +25,7 @@ public class AbstractCommand implements CommandExecutor, TabCompleter {
         if (args.length == 0) return false;
 
         for (AbstractArgument e : this.arguments) {
-            boolean isExecuted = e.executeCommand(sender, args);
+            boolean isExecuted = e.onCommand(sender, args);
             if (isExecuted) return true;
         }
 

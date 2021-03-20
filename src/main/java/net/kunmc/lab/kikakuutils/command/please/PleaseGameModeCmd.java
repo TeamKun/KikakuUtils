@@ -16,11 +16,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/* DEPRECATED */
 public class PleaseGameModeCmd extends AbstractArgument {
     // /please gamemode <GAMEMODE> [TARGET_SELECTOR]
 
     @Override
-    public boolean executeCommand(CommandSender sender, String[] args) {
+    public boolean onCommand(CommandSender sender, String[] args) {
         if (args.length < 2) return false;
         if (args.length > 3) return false;
         if (!args[0].equals("gamemode")) return false;

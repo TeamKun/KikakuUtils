@@ -1,4 +1,4 @@
-package net.kunmc.lab.kikakuutils.command.ku;
+package net.kunmc.lab.kikakuutils.command;
 
 import net.kunmc.lab.kikakuutils.KikakuUtils;
 import net.kunmc.lab.kikakuutils.command.AbstractArgument;
@@ -11,16 +11,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Gamemode extends AbstractArgument {
+public class ArgumentGameMode extends AbstractArgument {
     /**
      * ゲームモードの設定を全プレイヤー（含オフライン）に適用する
      * - コマンド内容
-     * /ku gamemode <adventure|creative|survival|spectator>
-     * /ku gamemode <adventure|creative|survival|spectator> TARGET_SELECTOR
+     * /ku gamemode <adventure|creative|survival|spectator> [TARGET_SELECTOR] [select]
      */
 
     @Override
-    public boolean executeCommand(CommandSender sender, String[] args) {
+    public boolean onCommand(CommandSender sender, String[] args) {
         if (args.length < 2) return false;
         if (args.length > 3) return false;
         if (!args[0].equals("gamemode")) return false;
