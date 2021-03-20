@@ -8,17 +8,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 abstract public class AbstractAsk {
-    private int waitTimeSec = 10;
-    private String argument;
+    private final int waitTimeSec = 15;
+    public AskArgument argument;
 
-    protected Map<String, AbstractAskTask> tickets = new HashMap<>();
+    protected Map<String, AbstractDelayedApplyTask> tickets = new HashMap<>();
 
     public AbstractAsk(String argument) {
-        this.argument = argument;
-    }
-
-    public String getArgument() {
-        return this.argument;
+        this.argument.set(argument);
     }
 
     protected int getWaitTimeSec() {
@@ -26,14 +22,13 @@ abstract public class AbstractAsk {
     }
 
     protected String createToken() {
-        String token = RandomStringUtils.random(16, true, true);
-        return token;
+        return RandomStringUtils.random(16, true, true);
     }
 
     protected String createRejectCommand(String token) {
         String[] commandParticles = new String[]{
                 AskInternalCommand.command,
-                getArgument(),
+                argument.get(),
                 token
         };
 
@@ -52,7 +47,7 @@ abstract public class AbstractAsk {
         if (!tickets.containsKey(token)) return false;
 
         // NOTE: Taskの生成が重い場合にはここも変更！
-        AbstractAskTask task = tickets.get(token);
+        AbstractDelayedApplyTask task = tickets.get(token);
         tickets.remove(token);
 
         if (task.isCancelled()) return false;

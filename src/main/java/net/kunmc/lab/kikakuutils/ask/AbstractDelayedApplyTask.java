@@ -2,10 +2,10 @@ package net.kunmc.lab.kikakuutils.ask;
 
 import org.bukkit.scheduler.BukkitRunnable;
 
-abstract public class AbstractAskTask extends BukkitRunnable {
+abstract public class AbstractDelayedApplyTask extends BukkitRunnable {
     private boolean isAliveTask;
 
-    public AbstractAskTask() {
+    public AbstractDelayedApplyTask() {
         isAliveTask = true;
     }
 

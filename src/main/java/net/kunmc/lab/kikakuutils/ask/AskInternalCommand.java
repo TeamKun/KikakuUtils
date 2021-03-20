@@ -13,9 +13,9 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public class AskInternalCommand implements CommandExecutor {
-    // /kikaku-internal-please <name> <token>"
+    // /kikaku-internal-ask <name> <token>"
 
-    public static final String command = "/kikaku-internal-please";
+    public static final String command = "/kikaku-internal-ask";
 
     private BaseComponent[] createErrorMessage(String text) {
         BaseComponent[] baseComponents = new ComponentBuilder()
@@ -51,13 +51,13 @@ public class AskInternalCommand implements CommandExecutor {
         String token = args[1];
 
         AskManager askManager = KikakuUtils.plugin.askManager;
-        Optional<AbstractAsk> pleaseOptional = Arrays.stream(askManager.please)
-                .filter(v -> v.getArgument().equals(name))
+        Optional<AbstractAsk> askOptional = Arrays.stream(askManager.askArray)
+                .filter(v -> v.argument.is(name))
                 .findAny();
 
-        if (pleaseOptional.isPresent()) {
-            AbstractAsk please = pleaseOptional.get();
-            boolean rejectComplete = please.reject(token);
+        if (askOptional.isPresent()) {
+            AbstractAsk ask = askOptional.get();
+            boolean rejectComplete = ask.reject(token);
             if (rejectComplete) sender.sendMessage(createRejectCompleteMessage());
             return true;
         }

@@ -14,7 +14,7 @@ public class AskGameMode extends AbstractAsk {
     }
 
     private BaseComponent[] createExecuteMessage(String sender, String gameMode, String token) {
-        int waitTimeSec = getWaitTimeSec();
+        String waitTimeSecStr = String.valueOf(getWaitTimeSec());
 
         BaseComponent[] baseComponents = new ComponentBuilder()
                 .append("[Kikaku Utils] ").color(ChatColor.LIGHT_PURPLE)
@@ -23,7 +23,7 @@ public class AskGameMode extends AbstractAsk {
                 .append(gameMode).color(ChatColor.GREEN)
                 .append("に変えようとしています。").color(ChatColor.WHITE)
                 .append("変更まで").color(ChatColor.WHITE)
-                .append(String.valueOf(waitTimeSec)).color(ChatColor.WHITE)
+                .append(waitTimeSecStr).color(ChatColor.WHITE)
                 .append("秒！").color(ChatColor.WHITE)
                 .append(" [クリックで拒否する]").color(ChatColor.GOLD)
                 .create();
@@ -54,7 +54,7 @@ public class AskGameMode extends AbstractAsk {
         tickets.put(token, task);
     }
 
-    public static class Task extends AbstractAskTask {
+    public static class Task extends AbstractDelayedApplyTask {
         private Player target;
         private GameMode gameMode;
 
