@@ -13,36 +13,19 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 abstract public class AbstractRule {
-    private CommandSender commandSender;
-    private String target;
     private LocalDateTime registerTime;
-
     private NamespacedKey key;
+    private RuleConfig config;
 
     protected AbstractRule(String key) {
         this.key = new NamespacedKey(KikakuUtils.plugin, key);
-    }
-
-    protected void setCommandSender(CommandSender commandSender) {
-        this.commandSender = commandSender;
-    }
-
-    protected void setTarget(String target) {
-        this.target = target;
     }
 
     protected void setRegisterTime() {
         this.registerTime = LocalDateTime.now();
     }
 
-    protected CommandSender getCommandSender() {
-        return this.commandSender;
-    }
-
-    protected String getTarget() {
-        return this.target;
-    }
-
+    // TODO: rename to isAppliedPlayer
     protected boolean isAppliedToPlayer(Player player) {
         PersistentDataContainer container = player.getPersistentDataContainer();
         if (!container.has(key, LocalDateTimeType.type)) return false;
@@ -60,15 +43,30 @@ abstract public class AbstractRule {
 
     public boolean isPlayerContainedInTarget(Player player) {
         // CAUTION: これsenderにオフラインプレイヤーを指定して実行したらどうなるの？
-        List<Entity> entities = Bukkit.selectEntities(commandSender, target);
+        CommandSender sender = getConfig().getSender();
+        String target = getConfig().getTarget();
+
+        List<Entity> entities = Bukkit.selectEntities(sender, target);
 
         return entities.stream()
                 .anyMatch(v -> v instanceof Player && v.equals(player));
     }
 
-    abstract public boolean setRule(CommandSender sender, String value, String target);
+    public void setRule(RuleConfig config) {
+        setConfig(config);
+        setRegisterTime();
+    }
 
-    abstract public void applyToPlayer(Player player);
+    protected void setConfig(RuleConfig config) {
+        this.config = config;
+    }
 
+    protected RuleConfig getConfig() {
+        return this.config;
+    }
+
+    abstract public void applyToPlayer(Player player, boolean checkTargetContain);
+
+    // TODO: rename to applyToOnlinePlayers
     abstract public void applyToAllTargetedPlayers();
 }

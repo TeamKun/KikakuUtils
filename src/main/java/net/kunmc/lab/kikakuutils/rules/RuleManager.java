@@ -23,8 +23,7 @@ public class RuleManager implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         Arrays.stream(rules)
-                .filter(v -> v.isPlayerContainedInTarget(player))
-                .forEach(v -> v.applyToPlayer(player));
+                .forEach(v -> v.applyToPlayer(player, true));
     }
 
     public void execImmediately() {
