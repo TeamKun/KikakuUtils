@@ -25,8 +25,7 @@ abstract public class AbstractRule {
         this.registerTime = LocalDateTime.now();
     }
 
-    // TODO: rename to isAppliedPlayer
-    protected boolean isAppliedToPlayer(Player player) {
+    protected boolean isAppliedPlayer(Player player) {
         PersistentDataContainer container = player.getPersistentDataContainer();
         if (!container.has(key, LocalDateTimeType.type)) return false;
 
@@ -67,6 +66,5 @@ abstract public class AbstractRule {
 
     abstract public void applyToPlayer(Player player, boolean checkTargetContain);
 
-    // TODO: rename to applyToOnlinePlayers
-    abstract public void applyToAllTargetedPlayers();
+    abstract public void applyToTargetedOnlinePlayers();
 }

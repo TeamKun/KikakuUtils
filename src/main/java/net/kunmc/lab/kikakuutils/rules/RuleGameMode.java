@@ -18,7 +18,7 @@ public class RuleGameMode extends AbstractRule {
     @Override
     public void applyToPlayer(Player player, boolean checkTargetContain) {
         if (!player.isOnline()) return;
-        if (isAppliedToPlayer(player)) return;
+        if (isAppliedPlayer(player)) return;
 
         // チェックが必要な場合には、ターゲットにプレイヤーが含まれるか確認
         if (checkTargetContain && !isPlayerContainedInTarget(player)) return;
@@ -58,7 +58,7 @@ public class RuleGameMode extends AbstractRule {
     }
 
     @Override
-    public void applyToAllTargetedPlayers() {
+    public void applyToTargetedOnlinePlayers() {
         CommandSender sender = getConfig().getSender();
         String target = getConfig().getTarget();
 

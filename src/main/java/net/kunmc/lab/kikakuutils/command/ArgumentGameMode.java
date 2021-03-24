@@ -100,7 +100,7 @@ public class ArgumentGameMode extends AbstractArgument {
 
         // 全プレイヤー対象
         if (targetPlayerState.equals(TargetPlayerState.ALL)) {
-            ruleGamemode.applyToAllTargetedPlayers();
+            ruleGamemode.applyToTargetedOnlinePlayers();
         }
 
         return true;
