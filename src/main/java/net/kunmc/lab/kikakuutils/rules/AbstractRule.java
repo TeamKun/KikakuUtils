@@ -26,6 +26,8 @@ abstract public class AbstractRule {
     }
 
     protected boolean isAppliedPlayer(Player player) {
+        if (registerTime == null) return true;
+
         PersistentDataContainer container = player.getPersistentDataContainer();
         if (!container.has(key, LocalDateTimeType.type)) return false;
 
@@ -41,9 +43,12 @@ abstract public class AbstractRule {
     }
 
     public boolean isPlayerContainedInTarget(Player player) {
+        RuleConfig config = getConfig();
+        if (config == null) return false;
+
         // CAUTION: これsenderにオフラインプレイヤーを指定して実行したらどうなるの？
-        CommandSender sender = getConfig().getSender();
-        String target = getConfig().getTarget();
+        CommandSender sender = config.getSender();
+        String target = config.getTarget();
 
         List<Entity> entities = Bukkit.selectEntities(sender, target);
 
