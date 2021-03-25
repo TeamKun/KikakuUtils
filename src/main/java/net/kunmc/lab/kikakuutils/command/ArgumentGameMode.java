@@ -11,12 +11,10 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ArgumentGameMode extends AbstractArgument {
@@ -226,7 +224,7 @@ public class ArgumentGameMode extends AbstractArgument {
         if (!GameModeUtils.isGameMode(gameMode)) return null;
 
         if (args.length == 3) {
-            List<String> suggestion = Arrays.asList("@a", "@p", "@r");
+            List<String> suggestion = new ArrayList<>(Arrays.asList("@a", "@p", "@r"));
             KikakuUtils.plugin.getServer().getOnlinePlayers()
                     .stream()
                     .map(v -> v.getName())
@@ -246,7 +244,7 @@ public class ArgumentGameMode extends AbstractArgument {
         }
 
         if (args.length == 4) {
-            List<String> suggestion = Arrays.asList(TargetPlayerState.values());
+            List<String> suggestion = new ArrayList<>(Arrays.asList(TargetPlayerState.values()));
 
             // 第３引数がターゲットだった場合
             if (!ExecutionAttitude.contains(args[2])) {
@@ -264,7 +262,7 @@ public class ArgumentGameMode extends AbstractArgument {
         }
 
         if (args.length == 5) {
-            if (ExecutionAttitude.contains(args[3])) {
+            if (ExecutionAttitude.contains(args[4])) {
                 List<String> suggestion = Arrays.asList(TargetPlayerState.values())
                         .stream()
                         .filter(v -> v.startsWith(args[4]))
