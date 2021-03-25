@@ -9,7 +9,7 @@ import java.util.Map;
 
 abstract public class AbstractAsk {
     private final int waitTimeSec = 15;
-    public AskArgument argument;
+    public AskArgument argument = new AskArgument();
 
     protected Map<String, AbstractDelayedApplyTask> tickets = new HashMap<>();
 
